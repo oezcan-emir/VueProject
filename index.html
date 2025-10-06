@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HTL Dornbirn 5bWI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <section class="board">
+      <h1 class="title">HTL Dornbirn 5bWI</h1>
+
+      <!-- Ladezustand -->
+      <p v-if="loading" class="status">Lade Daten …</p>
+      <!-- Fehlerzustand -->
+      <p v-else-if="error" class="status error">
+        {{ error }} <button class="retry" @click="fetchPeople">Erneut versuchen</button>
+      </p>
+
+      <!-- Grid -->
+      <main v-else class="grid" aria-label="Schüler:innen">
+        <article class="card" v-for="(p, i) in people" :key="i">
+         <img class="portrait" :src="p.img" :alt="p.name" referrerpolicy="no-referrer" @error="onImgErr" />
+          <div class="content">
+            <h3 class="name">{{ p.name }}</h3>
+            <p class="desc">
+              {{ p.desc }}
+            </p>
+          </div>
+        </article>
+      </main>
+    </section>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
